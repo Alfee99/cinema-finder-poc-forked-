@@ -9,7 +9,7 @@ import allCinemas from "./cinemas";
 // and will prevent this point needing to be regenerated every time we're recompute & sorting cinemas.
 const cinemasWithPoints = allCinemas.map((cinema) => ({
   ...cinema,
-  loc: point([cinema.lng, cinema.lat]),
+  loc: point([cinema.lng, cinema.lat])
 }));
 
 const computeCinemaDistance = memoize((lat, lng) => {
@@ -21,7 +21,7 @@ const computeCinemaDistance = memoize((lat, lng) => {
   return sortBy(
     cinemasWithPoints.map((cinema) => ({
       ...cinema,
-      distance: distance(location, cinema.loc),
+      distance: distance(location, cinema.loc)
     })),
     "distance"
   );
@@ -29,8 +29,12 @@ const computeCinemaDistance = memoize((lat, lng) => {
 
 const useNearbyCinemas = () => {
   // Use library's hook to get coords of location
-  const { coords, getPosition, isGeolocationAvailable, isGeolocationEnabled } =
-    useGeolocated();
+  const {
+    coords,
+    getPosition,
+    isGeolocationAvailable,
+    isGeolocationEnabled
+  } = useGeolocated();
   useEffect(() => {
     if (!isGeolocationEnabled) {
       getPosition();
@@ -47,8 +51,6 @@ const useNearbyCinemas = () => {
       0,
       15
     );
-    console.log(result); // add this line
-    return result;
   }, [coords]);
 
   // return status of location api lookup and list of cinemas
@@ -56,7 +58,7 @@ const useNearbyCinemas = () => {
     isGeolocationAvailable,
     isGeolocationEnabled,
     coords,
-    cinemas,
+    cinemas
   };
 };
 export default useNearbyCinemas;

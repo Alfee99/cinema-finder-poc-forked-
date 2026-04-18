@@ -3,7 +3,7 @@ import {
   // Rectangle,
   TileLayer,
   Marker,
-  useMap,
+  useMap
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
@@ -29,15 +29,10 @@ const MapSnappingEventListener = () => {
     } catch (e) {
       console.error(e);
       enqueueSnackbar("Unexpected error while attempting map navigation", {
-        variant: "error",
+        variant: "error"
       });
     }
   });
-
-  useEventListener("map.centerOnUser", ({ detail: { lat, lng } }) => {
-    map.flyTo([lat, lng], 10, { duration: 1, easeLinearity: 1 });
-  });
-
   return null;
 };
 
@@ -45,7 +40,7 @@ const convertBounds = ([w, s, e, n]) => [
   // Leaflet expects boundings boxes to be an array consisting of the corners of the box.
   // These corners are [lat, lon] [LatLng docs](https://leafletjs.com/reference.html#latlng)
   [s, w],
-  [n, e],
+  [n, e]
 ];
 
 const LeafletMarker = ({ lat, lon }) => <Marker position={[lat, lon]} />;
@@ -56,9 +51,6 @@ const LeafletMap = ({ children }) => {
     <>
       <MapContainer
         bounds={convertBounds(totalBounds)}
-        maxBounds={convertBounds(totalBounds)}
-        maxBoundsViscosity={1.0}
-        minZoom={3}
         style={{ height: "100%", backgroundColor: "#99b3cc" }}
         zoomSnap={0.5}
         zoomDelta={0.5}
